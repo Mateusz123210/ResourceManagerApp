@@ -1,6 +1,7 @@
 package com.example.resourcemanagerapp.model;
 
 
+import com.example.resourcemanagerapp.additionalTypes.MyResourceType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,19 +22,23 @@ public class MyResource {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "nick")
-    private String nick;
-
-    @Column(name = "name")
+    @Column
     private String name;
 
-    @Column(name = "surname")
-    private String surname;
-
-    @Column(name = "creationTime")
+    @Column
     private LocalDate creationTime;
 
-    @Column(name = "modificationTime")
+    @Column
     private LocalDate modificationTime;
-    
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private MyUser userId;
+
+    @Enumerated(EnumType.ORDINAL)
+    private MyResourceType type;
+
+    @Column(columnDefinition = "json")
+    private String metadata;
+
 }
