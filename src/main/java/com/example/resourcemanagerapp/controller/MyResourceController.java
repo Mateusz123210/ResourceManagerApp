@@ -4,10 +4,7 @@ package com.example.resourcemanagerapp.controller;
 import com.example.resourcemanagerapp.service.MyResourceServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MyResourceController {
@@ -20,7 +17,8 @@ public class MyResourceController {
     }
 
     @PostMapping(value = "/resource/add")
-    public ResponseEntity addResource(){
+    public ResponseEntity addResource(@RequestParam String name, @RequestParam Integer userId, @RequestParam String type,
+                                      @RequestParam String metadata){
         System.out.println("Resource added");
 
 
@@ -30,7 +28,7 @@ public class MyResourceController {
     }
 
     @DeleteMapping(value = "/resource/delete")
-    public ResponseEntity deleteResource(){
+    public ResponseEntity deleteResource(@RequestParam Integer id){
 
 
 
@@ -39,7 +37,7 @@ public class MyResourceController {
     }
 
     @PutMapping(value = "/resource/edit-name")
-    public ResponseEntity editResourceName(){
+    public ResponseEntity editResourceName(@RequestParam Integer id, @RequestParam String newName){
 
 
 
@@ -47,7 +45,8 @@ public class MyResourceController {
     }
 
     @PutMapping(value = "/resource/edit-metadata")
-    public ResponseEntity editResourceMetadata(){
+    public ResponseEntity editResourceMetadata(@RequestParam Integer id, @RequestParam String metadataType,
+                                               @RequestParam String metadata){
 
 
 

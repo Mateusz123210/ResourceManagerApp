@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 public class MyUserController {
 
     @PostMapping(value = "/user/add")
-    public ResponseEntity addUser(){
+    public ResponseEntity addUser(@RequestParam  String nick, @RequestParam String name, @RequestParam String surname,
+                                  @RequestParam String userType){
 
 
 
@@ -17,7 +18,8 @@ public class MyUserController {
     }
 
     @DeleteMapping(value = "/user/delete")
-    public ResponseEntity deleteUser(){
+    public ResponseEntity deleteUser(@RequestParam Integer id){
+
 
 
 
@@ -26,7 +28,8 @@ public class MyUserController {
     }
 
     @PutMapping(value = "/user/change-nick")
-    public ResponseEntity changeUserNick(){
+    public ResponseEntity changeUserNick(@RequestParam Integer id, @RequestParam String newNick){
+
 
 
 
