@@ -22,22 +22,21 @@ public class MyUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = true)
+    @Column(nullable = false)
     private String nick;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
-    @Column
+    @Column(nullable = false)
     private String surname;
 
-    @Column
+    @Column(nullable = false)
     private LocalDate creationTime;
 
-    @Column
+    @Column(nullable = false)
     private LocalDate modificationTime;
 
     @Enumerated(EnumType.ORDINAL)
     private MyUserType type;
-
 }

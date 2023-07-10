@@ -22,13 +22,13 @@ public class MyResource {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
-    @Column
+    @Column(nullable = false)
     private LocalDate creationTime;
 
-    @Column
+    @Column(nullable = false)
     private LocalDate modificationTime;
 
     @ManyToOne
@@ -38,7 +38,7 @@ public class MyResource {
     @Enumerated(EnumType.ORDINAL)
     private MyResourceType type;
 
-    @Column(columnDefinition = "json")
+    @Column(columnDefinition = "json", nullable = false)
     private String metadata;
 
 }

@@ -19,7 +19,6 @@ public class MyResourceController {
     @PostMapping(value = "/resource/add")
     public ResponseEntity addResource(@RequestParam String name, @RequestParam Integer userId, @RequestParam String type,
                                       @RequestParam String metadata){
-        System.out.println("Resource added");
 
 
 
