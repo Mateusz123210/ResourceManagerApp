@@ -37,22 +37,18 @@ public class MyUserController {
 
     @DeleteMapping(value = "/user/delete")
     public ResponseEntity deleteUser(@RequestParam Integer id){
-
-
-
-
-
-        return null;
+        if(id <= 0)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid params");
+        myUserService.deleteUser(id);
+        return ResponseEntity.ok("");
     }
 
     @PutMapping(value = "/user/change-nick")
     public ResponseEntity changeUserNick(@RequestParam Integer id, @RequestParam String newNick){
-
-
-
-
-
-        return null;
+        if(id <= 0 || newNick.length() == 0 || !checkNick(newNick))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid params");
+        myUserService.changeUserNick(id, newNick);
+        return ResponseEntity.ok("");
     }
 
     private Boolean checkNick(String nick){
@@ -65,7 +61,6 @@ public class MyUserController {
     }
 
     private Boolean checkNameOrSurname(String str){
-
         for(int i = 0; i < str.length(); i++){
             if(!Character.isLetter(str.charAt(i))){
                 return false;
