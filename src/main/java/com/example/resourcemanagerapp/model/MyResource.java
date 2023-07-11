@@ -38,7 +38,8 @@ public class MyResource {
     @Enumerated(EnumType.ORDINAL)
     private MyResourceType type;
 
-    @Column(columnDefinition = "json", nullable = false)
+//    @Column(columnDefinition = "json", nullable = false)
+    @Column(nullable = false)
     private String metadata;
 
 }

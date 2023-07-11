@@ -76,7 +76,7 @@ public class MyResourceController {
 
     private Boolean checkName(String name){
         for(int i = 0; i < name.length(); i++){
-            if(!Character.isLetter(name.charAt(i))){
+            if(!Character.isLetter(name.charAt(i)) && !Character.isDigit(name.charAt(i))){
                 return false;
             }
         }
