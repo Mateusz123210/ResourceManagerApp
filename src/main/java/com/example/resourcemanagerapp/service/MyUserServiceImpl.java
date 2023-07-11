@@ -39,8 +39,10 @@ public class MyUserServiceImpl implements MyUserService{
     public void changeUserNick(Integer userId, String nick) {
         Optional<MyUser> myUser = myUserRepository.findById(userId);
         if(myUser.isEmpty()) return;
+        LocalDate currentDate = LocalDate.now();
         MyUser myUserOld = myUser.get();
         myUserOld.setNick(nick);
+        myUserOld.setModificationTime(currentDate);
         myUserRepository.save(myUserOld);
     }
 }
