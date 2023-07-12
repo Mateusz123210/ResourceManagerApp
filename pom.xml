@@ -52,13 +52,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
-<!--		<dependency>-->
-<!--			<groupId>org.hibernate</groupId>-->
-<!--			<artifactId>hibernate-core</artifactId>-->
-<!--			<version>6.2.6.Final</version>-->
-<!--			<type>pom</type>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>io.hypersistence</groupId>
+			<artifactId>hypersistence-utils-hibernate-62</artifactId>
+			<version>3.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.vladmihalcea</groupId>
+			<artifactId>hibernate-types-52</artifactId>
+			<version>2.2.2</version>
+		</dependency>
 
 	</dependencies>
 

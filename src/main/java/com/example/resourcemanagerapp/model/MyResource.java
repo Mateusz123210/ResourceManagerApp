@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import java.time.LocalDate;
 
@@ -39,6 +40,9 @@ public class MyResource {
     private MyResourceType type;
 
 //    @Column(columnDefinition = "json", nullable = false)
+
+//    @Type(type="jsonb")
+//    @Column(columnDefinition = "jsonb", nullable = false)
     @Column(nullable = false)
     private String metadata;
 
