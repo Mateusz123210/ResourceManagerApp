@@ -21,9 +21,9 @@ public class MyResourceController {
         this.myResourceService = myResourceService;
     }
 
-//    @PostMapping(value = "/resource/add")
-//    public ResponseEntity addResource(@RequestParam String name, @RequestParam Integer userId, @RequestParam String type,
-//                                      @RequestParam String metadata){
+    @PostMapping(value = "/resource/add")
+    public ResponseEntity addResource(@RequestParam String name, @RequestParam Integer userId, @RequestParam String type,
+                                      @RequestParam String metadata){
 //        if(name.length() == 0 || userId <= 0 || type.length() == 0 || metadata.length() == 0 ||
 //                !checkName(name))
 //            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid params");
@@ -37,7 +37,8 @@ public class MyResourceController {
 //        }
 //        myResourceService.addResource(name, userId, myResourceType, metadata);
 //        return ResponseEntity.ok("");
-//    }
+        return ResponseEntity.status(500).body("Problem with class JSONException");
+    }
 
     @DeleteMapping(value = "/resource/delete")
     public ResponseEntity deleteResource(@RequestParam Integer id){
@@ -55,9 +56,9 @@ public class MyResourceController {
         return ResponseEntity.ok("");
     }
 
-//    @PutMapping(value = "/resource/edit-metadata")
-//    public ResponseEntity editResourceMetadata(@RequestParam Integer id, @RequestParam String metadataType,
-//                                               @RequestParam String metadata){
+    @PutMapping(value = "/resource/edit-metadata")
+    public ResponseEntity editResourceMetadata(@RequestParam Integer id, @RequestParam String metadataType,
+                                               @RequestParam String metadata){
 //        if(id <= 0)
 //            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid params");
 //        MyResourceType myResourceType = EnumChecker.containsResourceType(metadataType);
@@ -70,7 +71,8 @@ public class MyResourceController {
 //        }
 //        myResourceService.changeResourceMetadata(id, myResourceType, metadata);
 //        return ResponseEntity.ok("");
-//    }
+        return ResponseEntity.status(500).body("Problem with class JSONException");
+    }
 
     private Boolean checkName(String name){
         for(int i = 0; i < name.length(); i++){
