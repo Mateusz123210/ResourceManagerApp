@@ -1,9 +1,9 @@
-package com.example.resourcemanagerapp.controller;
+package com.example.resourcemanagerapp.controllers;
 
 
 import com.example.resourcemanagerapp.additionalTypes.EnumChecker;
 import com.example.resourcemanagerapp.additionalTypes.UserType;
-import com.example.resourcemanagerapp.service.UserServiceImpl;
+import com.example.resourcemanagerapp.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class UserController {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     @PostMapping(value = "/user")
     public ResponseEntity addUser(@RequestParam  String nick, @RequestParam String name, @RequestParam String surname,

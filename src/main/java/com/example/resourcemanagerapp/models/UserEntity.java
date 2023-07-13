@@ -1,4 +1,4 @@
-package com.example.resourcemanagerapp.model;
+package com.example.resourcemanagerapp.models;
 
 
 import com.example.resourcemanagerapp.additionalTypes.UserType;
@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Table(name = "Users")
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

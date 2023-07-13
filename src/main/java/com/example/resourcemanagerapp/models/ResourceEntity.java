@@ -1,4 +1,4 @@
-package com.example.resourcemanagerapp.model;
+package com.example.resourcemanagerapp.models;
 
 
 import com.example.resourcemanagerapp.additionalTypes.ResourceType;
@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Table(name = "Resources")
-public class Resource {
+public class ResourceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +33,7 @@ public class Resource {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private User userId;
+    private UserEntity userId;
 
     @Enumerated(EnumType.ORDINAL)
     private ResourceType type;

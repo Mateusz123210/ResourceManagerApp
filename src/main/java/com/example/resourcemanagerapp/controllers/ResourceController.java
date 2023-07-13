@@ -1,9 +1,9 @@
-package com.example.resourcemanagerapp.controller;
+package com.example.resourcemanagerapp.controllers;
 
 
 import com.example.resourcemanagerapp.additionalTypes.EnumChecker;
 import com.example.resourcemanagerapp.additionalTypes.ResourceType;
-import com.example.resourcemanagerapp.service.ResourceServiceImpl;
+import com.example.resourcemanagerapp.services.ResourceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class ResourceController {
 
-    private final ResourceServiceImpl resourceService;
+    private final ResourceService resourceService;
 
     @PostMapping(value = "/resource")
     public ResponseEntity addResource(@RequestParam String name, @RequestParam Integer userId, @RequestParam String type,
