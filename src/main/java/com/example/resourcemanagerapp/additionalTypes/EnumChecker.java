@@ -2,8 +2,8 @@ package com.example.resourcemanagerapp.additionalTypes;
 
 public class EnumChecker {
 
-    public static MyUserType containsUserType(String userType) {
-        for (MyUserType m : MyUserType.values()) {
+    public static UserType containsUserType(String userType) {
+        for (UserType m : UserType.values()) {
             if (m.name().equals(userType)) {
                 return m;
             }
@@ -11,8 +11,8 @@ public class EnumChecker {
         return null;
     }
 
-    public static MyResourceType containsResourceType(String resourceType) {
-        for (MyResourceType m : MyResourceType.values()) {
+    public static ResourceType containsResourceType(String resourceType) {
+        for (ResourceType m : ResourceType.values()) {
             if (m.name().equals(resourceType)) {
                 return m;
             }

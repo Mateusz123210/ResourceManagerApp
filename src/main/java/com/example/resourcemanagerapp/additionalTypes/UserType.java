@@ -1,6 +1,5 @@
 package com.example.resourcemanagerapp.additionalTypes;
 
-public enum MyUserType {
-
+public enum UserType {
     DEFAULT, SUPER_USER;
 }

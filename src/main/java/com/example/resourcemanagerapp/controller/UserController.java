@@ -2,52 +2,50 @@ package com.example.resourcemanagerapp.controller;
 
 
 import com.example.resourcemanagerapp.additionalTypes.EnumChecker;
-import com.example.resourcemanagerapp.additionalTypes.MyUserType;
-import com.example.resourcemanagerapp.service.MyUserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.resourcemanagerapp.additionalTypes.UserType;
+import com.example.resourcemanagerapp.service.UserServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@RequiredArgsConstructor
 @RestController
-public class MyUserController {
+public class UserController {
 
-    private final MyUserServiceImpl myUserService;
+    private final UserServiceImpl userService;
 
-    @Autowired
-    public MyUserController(MyUserServiceImpl myUserService) {
-        this.myUserService = myUserService;
-    }
-
-    @PostMapping(value = "/user/add")
+    @PostMapping(value = "/user")
     public ResponseEntity addUser(@RequestParam  String nick, @RequestParam String name, @RequestParam String surname,
-                                  @RequestParam String userType){
-        if(nick.length() == 0 || name.length() == 0 || surname.length() == 0 || userType.length() == 0)
+                                  @RequestParam String type){
+        if(nick.length() == 0 || name.length() == 0 || surname.length() == 0 || type.length() == 0)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid params");
         if(!checkNick(nick))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid params");
         if(!checkNameOrSurname(name) || !checkNameOrSurname(surname))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid params");
-        MyUserType myUserType = EnumChecker.containsUserType(userType);
-        if( myUserType == null)
+        UserType userType = EnumChecker.containsUserType(type);
+        if( userType == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid params");
-        myUserService.addUser(nick, name, surname, myUserType);
+        userService.addUser(nick, name, surname, userType);
         return ResponseEntity.ok("");
     }
 
-    @DeleteMapping(value = "/user/delete")
+    @DeleteMapping(value = "/user")
     public ResponseEntity deleteUser(@RequestParam Integer id){
-        if(id <= 0)
+        if(id <= 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid params");
-        myUserService.deleteUser(id);
+        }
+        userService.deleteUser(id);
         return ResponseEntity.ok("");
     }
 
-    @PutMapping(value = "/user/change-nick")
-    public ResponseEntity changeUserNick(@RequestParam Integer id, @RequestParam String newNick){
-        if(id <= 0 || newNick.length() == 0 || !checkNick(newNick))
+    @PutMapping(value = "/user/edit-nick")
+    public ResponseEntity editUserNick(@RequestParam Integer id, @RequestParam String newNick){
+        if(id <= 0 || newNick.length() == 0 || !checkNick(newNick)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid params");
-        myUserService.changeUserNick(id, newNick);
+        }
+        userService.changeUserNick(id, newNick);
         return ResponseEntity.ok("");
     }
 

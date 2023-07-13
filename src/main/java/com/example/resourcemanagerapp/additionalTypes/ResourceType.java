@@ -1,6 +1,5 @@
 package com.example.resourcemanagerapp.additionalTypes;
 
-public enum MyResourceType {
-
+public enum ResourceType {
     MAP, RESEARCH, FILE;
 }
