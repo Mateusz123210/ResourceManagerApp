@@ -6,6 +6,7 @@ import com.example.resourcemanagerapp.additionalTypes.ResourceType;
 import com.example.resourcemanagerapp.mappers.AddResourceDTO;
 import com.example.resourcemanagerapp.mappers.EditResourceMetadataDTO;
 import com.example.resourcemanagerapp.services.ResourceService;
+import com.example.resourcemanagerapp.validators.Validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
@@ -26,7 +27,7 @@ public class ResourceController {
         String type = addResourceDTO.getType();
         String metadata = addResourceDTO.getMetadata();
         if(name.length() == 0 || userId <= 0 || type.length() == 0 || metadata.length() == 0 ||
-                !checkName(name)) {
+                !Validator.checkIfContainsOnlyLetters(name)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid params");
         }
         ResourceType resourceType = EnumChecker.containsResourceType(type);
@@ -53,7 +54,7 @@ public class ResourceController {
 
     @PutMapping(value = "/resource/edit-name")
     public ResponseEntity editResourceName(@RequestParam Integer id, @RequestParam String newName){
-        if(id <= 0 || !checkName(newName)) {
+        if(id <= 0 || !Validator.checkIfContainsOnlyLetters(newName)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid params");
         }
         resourceService.changeResourceName(id, newName);
@@ -79,14 +80,5 @@ public class ResourceController {
         }
         resourceService.changeResourceMetadata(id, resourceType, metadata);
         return ResponseEntity.ok("");
-    }
-
-    private Boolean checkName(String name){
-        for(int i = 0; i < name.length(); i++){
-            if(!Character.isLetter(name.charAt(i)) && !Character.isDigit(name.charAt(i))){
-                return false;
-            }
-        }
-        return true;
     }
 }
