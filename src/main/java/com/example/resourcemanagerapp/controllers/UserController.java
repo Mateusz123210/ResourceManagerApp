@@ -3,6 +3,7 @@ package com.example.resourcemanagerapp.controllers;
 
 import com.example.resourcemanagerapp.additionalTypes.EnumChecker;
 import com.example.resourcemanagerapp.additionalTypes.UserType;
+import com.example.resourcemanagerapp.mappers.AddUserDTO;
 import com.example.resourcemanagerapp.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,8 +17,11 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping(value = "/user")
-    public ResponseEntity addUser(@RequestParam  String nick, @RequestParam String name, @RequestParam String surname,
-                                  @RequestParam String type){
+    public ResponseEntity addUser(@RequestBody AddUserDTO addUserDTO){
+        String nick = addUserDTO.getNick();
+        String name = addUserDTO.getName();
+        String surname = addUserDTO.getSurname();
+        String type = addUserDTO.getType();
         if(nick.length() == 0 || name.length() == 0 || surname.length() == 0 || type.length() == 0)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid params");
         if(!checkNick(nick))

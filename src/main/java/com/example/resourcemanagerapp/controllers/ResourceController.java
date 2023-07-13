@@ -3,6 +3,8 @@ package com.example.resourcemanagerapp.controllers;
 
 import com.example.resourcemanagerapp.additionalTypes.EnumChecker;
 import com.example.resourcemanagerapp.additionalTypes.ResourceType;
+import com.example.resourcemanagerapp.mappers.AddResourceDTO;
+import com.example.resourcemanagerapp.mappers.EditResourceMetadataDTO;
 import com.example.resourcemanagerapp.services.ResourceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.configurationprocessor.json.JSONException;
@@ -18,8 +20,11 @@ public class ResourceController {
     private final ResourceService resourceService;
 
     @PostMapping(value = "/resource")
-    public ResponseEntity addResource(@RequestParam String name, @RequestParam Integer userId, @RequestParam String type,
-                                      @RequestParam String metadata){
+    public ResponseEntity addResource(@RequestBody AddResourceDTO addResourceDTO){
+        String name = addResourceDTO.getName();
+        Integer userId = addResourceDTO.getUserId();
+        String type = addResourceDTO.getType();
+        String metadata = addResourceDTO.getMetadata();
         if(name.length() == 0 || userId <= 0 || type.length() == 0 || metadata.length() == 0 ||
                 !checkName(name)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid params");
@@ -56,8 +61,10 @@ public class ResourceController {
     }
 
     @PutMapping(value = "/resource/edit-metadata")
-    public ResponseEntity editResourceMetadata(@RequestParam Integer id, @RequestParam String metadataType,
-                                               @RequestParam String metadata){
+    public ResponseEntity editResourceMetadata(@RequestBody EditResourceMetadataDTO editResourceMetadataDTO){
+        Integer id  = editResourceMetadataDTO.getId();
+        String metadataType = editResourceMetadataDTO.getMetadataType();
+        String metadata = editResourceMetadataDTO.getMetadata();
         if(id <= 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid params");
         }
