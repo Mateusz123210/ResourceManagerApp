@@ -21,8 +21,8 @@ public class UserController {
     }
 
     @DeleteMapping
-    public ResponseEntity deleteUser(@RequestParam Integer id){
-        return userService.deleteUser(id);
+    public ResponseEntity deleteUser(@RequestParam Integer id, @RequestParam Integer authorizedUserId){
+        return userService.deleteUser(id, authorizedUserId);
     }
 
     @PutMapping(value = "/update-nick")

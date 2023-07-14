@@ -11,11 +11,11 @@ import com.example.resourcemanagerapp.models.UserEntity;
 import com.example.resourcemanagerapp.repositories.ResourceRepository;
 import com.example.resourcemanagerapp.repositories.UserRepository;
 import com.example.resourcemanagerapp.validators.ResourceApiParamsValidator;
+import com.example.resourcemanagerapp.validators.UserApiParamsValidator;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
@@ -48,11 +48,18 @@ public class ResourceService {
     }
 
     @Transactional
-    public ResponseEntity deleteResource(Integer id) {
+    public ResponseEntity deleteResource(Integer id, Integer authorizedUserId) {
+        UserApiParamsValidator.validateUserId(authorizedUserId);
+        UserEntity authorizedUser = userRepository.findById(authorizedUserId)
+                .orElseThrow(() -> new ApplicationException
+                        ("Resource was not deleted. Authorized user does not exist!"));
         ResourceApiParamsValidator.validateResourceId(id);
-        ResourceEntity resource = resourceRepository.findById(id).
-                orElseThrow(() -> new ApplicationException
-                        ("Resource was not deleted. Resource with this id does not exist!"));
+        ResourceEntity resource = resourceRepository.findById(id)
+            .orElseThrow(() -> new ApplicationException
+                    ("Resource was not deleted. Resource with this id does not exist!"));
+        if(resource.getUserId() != authorizedUser){
+            throw new ApplicationException("Resource was not deleted. Resource does not belong to this user!");
+        }
         resourceRepository.deleteById(id);
         return ResponseEntity.ok("Resource was deleted!");
     }
@@ -76,6 +83,7 @@ public class ResourceService {
         Integer id  = updateResourceMetadataDTO.getId();
         ResourceType type = updateResourceMetadataDTO.getMetadataType();
         String metadata = updateResourceMetadataDTO.getMetadata();
+        ResourceApiParamsValidator.validateUpdateResourceMetadataParameters(id, type, metadata);
         ResourceEntity resource = resourceRepository.findById(id).orElseThrow(
             () -> new ApplicationException(
                     "Resource name was not changed. Resource with this id does not exist!"));

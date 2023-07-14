@@ -1,5 +1,6 @@
 package com.example.resourcemanagerapp.validators;
 
+
 import com.example.resourcemanagerapp.additionalTypes.ResourceType;
 import com.example.resourcemanagerapp.exceptions.ApplicationException;
 import org.springframework.boot.configurationprocessor.json.JSONException;

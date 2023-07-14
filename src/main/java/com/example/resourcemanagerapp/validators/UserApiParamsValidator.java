@@ -1,5 +1,6 @@
 package com.example.resourcemanagerapp.validators;
 
+
 import com.example.resourcemanagerapp.additionalTypes.UserType;
 import com.example.resourcemanagerapp.exceptions.ApplicationException;
 

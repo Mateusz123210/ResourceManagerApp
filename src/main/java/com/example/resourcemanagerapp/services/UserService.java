@@ -1,5 +1,6 @@
 package com.example.resourcemanagerapp.services;
 
+
 import com.example.resourcemanagerapp.additionalTypes.UserType;
 import com.example.resourcemanagerapp.dtos.AddUserDTO;
 import com.example.resourcemanagerapp.dtos.UpdateUserNickDTO;
@@ -21,7 +22,7 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private final UserRepository UserRepository;
+    private final UserRepository userRepository;
     private final ResourceRepository resourceRepository;
 
     public ResponseEntity addUser(AddUserDTO addUserDTO) {
@@ -39,32 +40,39 @@ public class UserService {
         LocalDateTime currentDateTime = LocalDateTime.now();
         userEntity.setModificationTime(currentDateTime);
         userEntity.setCreationTime(currentDateTime);
-        UserRepository.save(userEntity);
+        userRepository.save(userEntity);
         return ResponseEntity.ok("User was added!");
     }
 
     @Transactional
-    public ResponseEntity deleteUser(Integer id) {
+    public ResponseEntity deleteUser(Integer id, Integer authorizedUserId) {
+        UserApiParamsValidator.validateUserId(authorizedUserId);
         UserApiParamsValidator.validateUserId(id);
-        UserEntity user = UserRepository.findById(id).
+        UserEntity authorizedUser = userRepository.findById(authorizedUserId).
+                orElseThrow(() -> new ApplicationException(
+                        "User was not deleted, because authorized user does not exist!"));
+        if(authorizedUser.getType() == UserType.DEFAULT){
+            throw new ApplicationException("User is not permitted to delete users!");
+        }
+        UserEntity user = userRepository.findById(id).
                 orElseThrow(() -> new ApplicationException("User was not deleted, because does not exist!"));
         List<ResourceEntity> userResourceEntities = resourceRepository.findAllByUserId(user);
         for(ResourceEntity resourceEntity : userResourceEntities){
             resourceRepository.deleteById(resourceEntity.getId());
         }
-        UserRepository.deleteById(id);
+        userRepository.deleteById(id);
         return ResponseEntity.ok("User was deleted!");
     }
 
     @Transactional
     public ResponseEntity updateUserNick(UpdateUserNickDTO updateUserNickDTO) {
         UserApiParamsValidator.checkUpdateUserNickParameters(updateUserNickDTO.getId(), updateUserNickDTO.getNewNick());
-        UserEntity user = UserRepository.findById(updateUserNickDTO.getId()).orElseThrow(() ->
+        UserEntity user = userRepository.findById(updateUserNickDTO.getId()).orElseThrow(() ->
                 new ApplicationException("Nick was not changed. User with this id does not exist!"));
         LocalDateTime currentDateTime = LocalDateTime.now();
         user.setNick(updateUserNickDTO.getNewNick());
         user.setModificationTime(currentDateTime);
-        UserRepository.save(user);
+        userRepository.save(user);
         return ResponseEntity.ok("User nick was changed!");
     }
 }
