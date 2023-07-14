@@ -7,8 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Builder
 @Data
@@ -32,10 +31,10 @@ public class UserEntity {
     private String surname;
 
     @Column(nullable = false)
-    private LocalDate creationTime;
+    private LocalDateTime creationTime;
 
     @Column(nullable = false)
-    private LocalDate modificationTime;
+    private LocalDateTime modificationTime;
 
     @Enumerated(EnumType.ORDINAL)
     private UserType type;

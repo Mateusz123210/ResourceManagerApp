@@ -7,8 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Builder
 @Data
@@ -26,10 +25,10 @@ public class ResourceEntity {
     private String name;
 
     @Column(nullable = false)
-    private LocalDate creationTime;
+    private LocalDateTime creationTime;
 
     @Column(nullable = false)
-    private LocalDate modificationTime;
+    private LocalDateTime modificationTime;
 
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -38,11 +37,6 @@ public class ResourceEntity {
     @Enumerated(EnumType.ORDINAL)
     private ResourceType type;
 
-//    @Column(columnDefinition = "json", nullable = false)
-
-//    @Type(type="jsonb")
-//    @Column(columnDefinition = "jsonb", nullable = false)
     @Column(nullable = false)
     private String metadata;
-
 }

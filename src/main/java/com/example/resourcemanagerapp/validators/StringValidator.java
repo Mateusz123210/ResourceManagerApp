@@ -1,6 +1,6 @@
 package com.example.resourcemanagerapp.validators;
 
-public class Validator {
+public class StringValidator {
 
     public static Boolean checkIfContainsOnlyLetters(String str){
         for(int i = 0; i < str.length(); i++){
