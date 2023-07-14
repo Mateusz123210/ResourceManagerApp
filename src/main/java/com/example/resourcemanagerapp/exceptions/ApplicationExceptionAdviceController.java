@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class ApplicationExceptionHandler {
+public class ApplicationExceptionAdviceController {
 
     @ExceptionHandler({ ApplicationException.class})
     public ResponseEntity handleApplicationException(ApplicationException e){

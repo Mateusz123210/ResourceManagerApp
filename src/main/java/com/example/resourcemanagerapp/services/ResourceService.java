@@ -27,14 +27,22 @@ public class ResourceService {
 
     @Transactional
     public ResponseEntity addResource(AddResourceDTO addResourceDTO) {
-        ResourceApiParamsValidator.validateAddResourceParameters(addResourceDTO);
+        String name = addResourceDTO.getName();
+        Integer userId = addResourceDTO.getUserId();
+        ResourceType type = addResourceDTO.getType();
+        String metadata = addResourceDTO.getMetadata();
+        ResourceApiParamsValidator.validateAddResourceParameters(name, userId, type, metadata);
         UserEntity user = userRepository.findById(addResourceDTO.getUserId()).
                 orElseThrow(() -> new ApplicationException("Resource was not added. User with this id does not exist!"));
         LocalDateTime currentDateTime = LocalDateTime.now();
-        ResourceEntity resourceEntity = ResourceEntity.builder().name(addResourceDTO.getName()).
-            userId(user).type(addResourceDTO.getType()).
-                metadata(addResourceDTO.getMetadata()).creationTime(currentDateTime).
-                    modificationTime(currentDateTime).build();
+        ResourceEntity resourceEntity = ResourceEntity.builder()
+                .name(addResourceDTO.getName())
+                .userId(user)
+                .type(addResourceDTO.getType())
+                .metadata(addResourceDTO.getMetadata())
+                .creationTime(currentDateTime)
+                .modificationTime(currentDateTime)
+                .build();
         resourceRepository.save(resourceEntity);
         return ResponseEntity.ok("Resource was added!");
     }
@@ -65,12 +73,9 @@ public class ResourceService {
 
     @Transactional
     public ResponseEntity changeResourceMetadata(UpdateResourceMetadataDTO updateResourceMetadataDTO) {
-
         Integer id  = updateResourceMetadataDTO.getId();
         ResourceType type = updateResourceMetadataDTO.getMetadataType();
         String metadata = updateResourceMetadataDTO.getMetadata();
-        ResourceApiParamsValidator.validateResourceId(id);
-        ResourceApiParamsValidator.validateMetadata(metadata);
         ResourceEntity resource = resourceRepository.findById(id).orElseThrow(
             () -> new ApplicationException(
                     "Resource name was not changed. Resource with this id does not exist!"));

@@ -30,7 +30,11 @@ public class UserService {
         String surname = addUserDTO.getSurname();
         UserType type = addUserDTO.getType();
         UserApiParamsValidator.validateAddUserParameters(nick, name, surname, type);
-        UserEntity userEntity = UserEntity.builder().nick(nick).name(name).surname(surname).type(type)
+        UserEntity userEntity = UserEntity.builder()
+                .nick(nick)
+                .name(name)
+                .surname(surname)
+                .type(type)
                 .build();
         LocalDateTime currentDateTime = LocalDateTime.now();
         userEntity.setModificationTime(currentDateTime);

@@ -4,7 +4,6 @@ import com.example.resourcemanagerapp.additionalTypes.UserType;
 import com.example.resourcemanagerapp.exceptions.ApplicationException;
 
 public class UserApiParamsValidator {
-
     public static void validateAddUserParameters(String nick, String name, String surname,
                                                        UserType type) {
         if(nick == null || nick.isEmpty() || name == null || name.isEmpty() ||
