@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     url:
-      jdbc:postgresql://localhost:5432/postgres
-#      jdbc:postgresql://192.168.1.0:5432/postgres
+#      jdbc:postgresql://localhost:5432/postgres
+      jdbc:postgresql://192.168.1.0:5432/postgres
     username:
       postgres
     password:
