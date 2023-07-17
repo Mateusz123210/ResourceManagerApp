@@ -3,8 +3,8 @@ package com.example.resourcemanagerapp.validators;
 
 import com.example.resourcemanagerapp.additionalTypes.ResourceType;
 import com.example.resourcemanagerapp.exceptions.ApplicationException;
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ResourceApiParamsValidator {
     public static void validateAddResourceParameters(String name, Integer userId, ResourceType type, String metadata) {
