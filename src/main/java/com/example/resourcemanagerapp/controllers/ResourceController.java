@@ -1,9 +1,9 @@
 package com.example.resourcemanagerapp.controllers;
 
 
-import com.example.resourcemanagerapp.dtos.AddResourceDTO;
-import com.example.resourcemanagerapp.dtos.UpdateResourceMetadataDTO;
-import com.example.resourcemanagerapp.dtos.UpdateResourceNameDTO;
+import com.example.resourcemanagerapp.dtos.ResourceDTO;
+import com.example.resourcemanagerapp.dtos.ResourceMetadataDTO;
+import com.example.resourcemanagerapp.dtos.ResourceNameDTO;
 import com.example.resourcemanagerapp.services.ResourceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +17,8 @@ public class ResourceController {
     private final ResourceService resourceService;
 
     @PostMapping
-    public ResponseEntity addResource(@RequestBody AddResourceDTO addResourceDTO){
-        return resourceService.addResource(addResourceDTO);
+    public ResponseEntity addResource(@RequestBody ResourceDTO resourceDTO){
+        return resourceService.addResource(resourceDTO);
     }
 
     @DeleteMapping
@@ -27,12 +27,12 @@ public class ResourceController {
     }
 
     @PutMapping(value = "/update-name")
-    public ResponseEntity updateResourceName(@RequestBody UpdateResourceNameDTO updateResourceNameDTO){
-        return resourceService.changeResourceName(updateResourceNameDTO);
+    public ResponseEntity updateResourceName(@RequestBody ResourceNameDTO resourceNameDTO){
+        return resourceService.changeResourceName(resourceNameDTO);
     }
 
     @PutMapping(value = "/update-metadata")
-    public ResponseEntity updateResourceMetadata(@RequestBody UpdateResourceMetadataDTO updateResourceMetadataDTO){
-         return resourceService.changeResourceMetadata(updateResourceMetadataDTO);
+    public ResponseEntity updateResourceMetadata(@RequestBody ResourceMetadataDTO resourceMetadataDTO){
+         return resourceService.changeResourceMetadata(resourceMetadataDTO);
     }
 }

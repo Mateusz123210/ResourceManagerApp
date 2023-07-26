@@ -4,7 +4,7 @@ import com.example.resourcemanagerapp.additionalTypes.ResourceType;
 import lombok.Getter;
 
 @Getter
-public class UpdateResourceMetadataDTO {
+public class ResourceMetadataDTO {
     Integer resourceId;
     ResourceType metadataType;
     String metadata;

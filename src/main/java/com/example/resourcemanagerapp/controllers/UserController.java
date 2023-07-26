@@ -1,8 +1,8 @@
 package com.example.resourcemanagerapp.controllers;
 
 
-import com.example.resourcemanagerapp.dtos.AddUserDTO;
-import com.example.resourcemanagerapp.dtos.UpdateUserNickDTO;
+import com.example.resourcemanagerapp.dtos.UserDTO;
+import com.example.resourcemanagerapp.dtos.UserNickDTO;
 import com.example.resourcemanagerapp.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +16,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity addUser(@RequestBody AddUserDTO addUserDTO){
-        return userService.addUser(addUserDTO);
+    public ResponseEntity addUser(@RequestBody UserDTO userDTO){
+        return userService.addUser(userDTO);
     }
 
     @DeleteMapping
@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/update-nick")
-    public ResponseEntity updateUserNick(@RequestBody UpdateUserNickDTO updateUserNickDTO){
-        return userService.updateUserNick(updateUserNickDTO);
+    public ResponseEntity updateUserNick(@RequestBody UserNickDTO userNickDTO){
+        return userService.updateUserNick(userNickDTO);
     }
 }
