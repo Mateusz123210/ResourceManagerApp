@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class UpdateResourceMetadataDTO {
-    Integer id;
+    Integer resourceId;
     ResourceType metadataType;
     String metadata;
 }

@@ -48,25 +48,25 @@ public class ResourceService {
     }
 
     @Transactional
-    public ResponseEntity deleteResource(Integer id, Integer authorizedUserId) {
+    public ResponseEntity deleteResource(Integer resourceId, Integer authorizedUserId) {
         UserApiParamsValidator.validateUserId(authorizedUserId);
         UserEntity authorizedUser = userRepository.findById(authorizedUserId)
                 .orElseThrow(() -> new ApplicationException
                         ("Resource was not deleted. Authorized user does not exist!"));
-        ResourceApiParamsValidator.validateResourceId(id);
-        ResourceEntity resource = resourceRepository.findById(id)
+        ResourceApiParamsValidator.validateResourceId(resourceId);
+        ResourceEntity resource = resourceRepository.findById(resourceId)
             .orElseThrow(() -> new ApplicationException
                     ("Resource was not deleted. Resource with this id does not exist!"));
         if(resource.getUserId() != authorizedUser){
             throw new ApplicationException("Resource was not deleted. Resource does not belong to this user!");
         }
-        resourceRepository.deleteById(id);
+        resourceRepository.deleteById(resourceId);
         return ResponseEntity.ok("Resource was deleted!");
     }
 
     @Transactional
     public ResponseEntity changeResourceName(UpdateResourceNameDTO updateResourceNameDTO) {
-        Integer id = updateResourceNameDTO.getId();
+        Integer id = updateResourceNameDTO.getResourceId();
         String newName = updateResourceNameDTO.getNewName();
         ResourceApiParamsValidator.validateUpdateResourceNameParameters(id, newName);
         ResourceEntity resource = resourceRepository.findById(id).orElseThrow(
@@ -80,7 +80,7 @@ public class ResourceService {
 
     @Transactional
     public ResponseEntity changeResourceMetadata(UpdateResourceMetadataDTO updateResourceMetadataDTO) {
-        Integer id  = updateResourceMetadataDTO.getId();
+        Integer id  = updateResourceMetadataDTO.getResourceId();
         ResourceType type = updateResourceMetadataDTO.getMetadataType();
         String metadata = updateResourceMetadataDTO.getMetadata();
         ResourceApiParamsValidator.validateUpdateResourceMetadataParameters(id, type, metadata);

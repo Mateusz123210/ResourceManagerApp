@@ -4,6 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class UpdateUserNickDTO {
-    Integer id;
+    Integer userId;
     String newNick;
 }

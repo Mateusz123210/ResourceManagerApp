@@ -25,6 +25,13 @@ public class UserApiParamsValidator {
         }
     }
 
+    public static void validateUserId(Integer id, Integer authorizedUserId){
+        validateUserId(id);
+        if(authorizedUserId <= 0) {
+            throw new ApplicationException("Given authorized user id is invalid!");
+        }
+    }
+
     public static void checkUpdateUserNickParameters(Integer id, String nick){
         if(id <= 0 ) {
             throw new ApplicationException("Given user id is invalid!");

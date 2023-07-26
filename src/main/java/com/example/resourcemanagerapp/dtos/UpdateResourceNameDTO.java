@@ -4,6 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class UpdateResourceNameDTO {
-    Integer id;
+    Integer resourceId;
     String newName;
 }

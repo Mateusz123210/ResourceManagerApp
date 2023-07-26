@@ -45,29 +45,28 @@ public class UserService {
     }
 
     @Transactional
-    public ResponseEntity deleteUser(Integer id, Integer authorizedUserId) {
-        UserApiParamsValidator.validateUserId(authorizedUserId);
-        UserApiParamsValidator.validateUserId(id);
+    public ResponseEntity deleteUser(Integer userId, Integer authorizedUserId) {
+        UserApiParamsValidator.validateUserId(userId, authorizedUserId);
         UserEntity authorizedUser = userRepository.findById(authorizedUserId).
                 orElseThrow(() -> new ApplicationException(
                         "User was not deleted, because authorized user does not exist!"));
         if(authorizedUser.getType() == UserType.DEFAULT){
             throw new ApplicationException("User is not permitted to delete users!");
         }
-        UserEntity user = userRepository.findById(id).
+        UserEntity user = userRepository.findById(userId).
                 orElseThrow(() -> new ApplicationException("User was not deleted, because does not exist!"));
         List<ResourceEntity> userResourceEntities = resourceRepository.findAllByUserId(user);
         for(ResourceEntity resourceEntity : userResourceEntities){
             resourceRepository.deleteById(resourceEntity.getId());
         }
-        userRepository.deleteById(id);
+        userRepository.deleteById(userId);
         return ResponseEntity.ok("User was deleted!");
     }
 
     @Transactional
     public ResponseEntity updateUserNick(UpdateUserNickDTO updateUserNickDTO) {
-        UserApiParamsValidator.checkUpdateUserNickParameters(updateUserNickDTO.getId(), updateUserNickDTO.getNewNick());
-        UserEntity user = userRepository.findById(updateUserNickDTO.getId()).orElseThrow(() ->
+        UserApiParamsValidator.checkUpdateUserNickParameters(updateUserNickDTO.getUserId(), updateUserNickDTO.getNewNick());
+        UserEntity user = userRepository.findById(updateUserNickDTO.getUserId()).orElseThrow(() ->
                 new ApplicationException("Nick was not changed. User with this id does not exist!"));
         LocalDateTime currentDateTime = LocalDateTime.now();
         user.setNick(updateUserNickDTO.getNewNick());
