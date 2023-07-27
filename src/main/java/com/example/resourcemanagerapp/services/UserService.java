@@ -81,7 +81,7 @@ public class UserService {
 
         UserApiParamsValidator.checkUpdateUserNickParameters(userId, newNick);
 
-        UserEntity user = userRepository.findById(userNickDTO.getUserId()).orElseThrow(() ->
+        UserEntity user = userRepository.findById(userId).orElseThrow(() ->
                 new UserNotFoundException("Nick was not changed. User with this id does not exist!"));
         LocalDateTime currentDateTime = LocalDateTime.now();
 

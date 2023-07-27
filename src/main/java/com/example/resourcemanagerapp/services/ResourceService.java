@@ -35,7 +35,8 @@ public class ResourceService {
         ResourceApiParamsValidator.validateAddResourceParameters(name, userId, type, metadata);
 
         UserEntity user = userRepository.findById(userId).
-                orElseThrow(() -> new UserNotFoundException("Resource was not added. User with this id does not exist!"));
+                orElseThrow(() -> new UserNotFoundException
+                        ("Resource was not added. User with this id does not exist!"));
         LocalDateTime currentDateTime = LocalDateTime.now();
         ResourceEntity resourceEntity = ResourceEntity.builder()
                 .name(name)
@@ -66,7 +67,8 @@ public class ResourceService {
                     ("Resource was not deleted. Resource with this id does not exist!"));
 
         if(resource.getUserId() != authorizedUser){
-            throw new UserNotPermittedException("Resource was not deleted. Resource does not belong to this user!");
+            throw new UserNotPermittedException
+                    ("Resource was not deleted. Resource does not belong to this user!");
         }
         resourceRepository.deleteById(resourceId);
 

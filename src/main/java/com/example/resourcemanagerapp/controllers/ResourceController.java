@@ -22,8 +22,8 @@ public class ResourceController {
     }
 
     @DeleteMapping
-    public ResponseEntity deleteResource(@RequestParam Integer id, @RequestParam Integer authorizedUserId){
-        return resourceService.deleteResource(id, authorizedUserId);
+    public ResponseEntity deleteResource(@RequestParam Integer resourceId, @RequestParam Integer authorizedUserId){
+        return resourceService.deleteResource(resourceId, authorizedUserId);
     }
 
     @PutMapping(value = "/update-name")
